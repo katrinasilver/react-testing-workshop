@@ -5,29 +5,26 @@ import { shallow, mount } from 'enzyme'
 import CreateItem from '../components/CreateItem'
 import ListItems from '../components/ListItems'
 
-it('should have CreateItem', () => {
-  const wrapper = shallow(<App/>)
+let wrapper
 
-  expect(wrapper.find(CreateItem).length).toBe(1)
+beforeEach(() => {
+  wrapper = shallow(<App/>)
+})
+it('should have CreateItem', () => {
+  expect(wrapper.find(CreateItem)).toHaveLength(1)
 })
 
 it('should pass add function to CreateItem', () => {
-  const wrapper = shallow(<App/>)
-
   const instance = wrapper.instance()
 
   expect(wrapper.find(CreateItem).prop('add')).toBe(instance.add)
 })
 
 it('should have ListItems', () => {
-  const wrapper = shallow(<App/>)
-
-  expect(wrapper.find(ListItems).length).toBe(1)
+  expect(wrapper.find(ListItems)).toHaveLength(1)
 })
 
 it('should pass data to ListItems', () => {
-  const wrapper = shallow(<App/>)
-
   const instance = wrapper.instance()
 
   expect(wrapper.find(ListItems).prop('items')).toBe(instance.state.items)
@@ -36,18 +33,15 @@ it('should pass data to ListItems', () => {
 
 if('should update state when this.add is invoked', () => {
   const value = 'qwerty123456'
-  const wrapper = shallow(<App />)
 
   const instance = wrapper.instance()
 
   instance.add(value)
 
-  wrapper.update()
-
   const items = instance.state().items
+  
   expect(items).toHaveLength(1)
   expect(items).toEqual([ value ])
-
 })
 
 
@@ -65,8 +59,8 @@ describe('App Full operations', () => {
     wrapper.find('form').simulate('submit', { preventDefault: () => {} })
 
     const li = wrapper.find('li')
-    expect(li.length).toBe(1)
+    
+    expect(li).toHaveLength(1)
     expect(li.text()).toBe(value)
-
   })
 })

@@ -11,12 +11,12 @@ beforeEach(() => {
 })
 
 it('should have a textarea', () => {
-  expect(wrapper.find('textarea').length).toBe(1)
+  expect(wrapper.find('textarea')).toHaveLength(1)
 })
 
 
 it('should have a button', () => {
-  expect(wrapper.find('button').length).toBe(1)
+  expect(wrapper.find('button')).toHaveLength(1)
 })
 
 it('should update value of text area everytime an onchange triggers', () => {
@@ -64,7 +64,6 @@ it('should invoke passed function when form is submitted', () => {
   wrapper.find('textarea')
          .simulate('change', { target: { value } })
 
-  wrapper.update()
   wrapper.find('form')
          .simulate('submit', { preventDefault: () => {} })
 

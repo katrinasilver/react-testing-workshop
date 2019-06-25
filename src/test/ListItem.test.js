@@ -6,7 +6,7 @@ import ListItem from '../components/ListItem'
 it('should have a list item', () => {
   const wrapper = shallow(<ListItem />)
 
-  expect(wrapper.find('li').length).toBe(1)
+  expect(wrapper.find('li')).toHaveLength(1)
 })
 
 it('should present passed data', () => {

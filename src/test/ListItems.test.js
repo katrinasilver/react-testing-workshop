@@ -12,16 +12,15 @@ beforeEach(() => {
 })
 
 it('should contain an unordered list', () => {
-  expect(wrapper.find('ul').length).toBe(1)
+  expect(wrapper.find('ul')).toHaveLength(1)
 })
 
-
 it('should have as many ListItems as data passed it', () => {
-  expect(wrapper.find(ListItem).length).toBe(data.length)
+  expect(wrapper.find(ListItem)).toHaveLength(data.length)
 })
 
 it('pass props to ListItems', () => {
-  wrapper.find(ListItem).forEach((e,i) => {
+  wrapper.find(ListItem).forEach((e, i) => {
     expect(e.prop('item')).toBe(data[i])
   })
 })
