@@ -34,6 +34,23 @@ it('should pass data to ListItems', () => {
 })
 
 
+if('should update state when this.add is invoked', () => {
+  const value = 'qwerty123456'
+  const wrapper = shallow(<App />)
+
+  const instance = wrapper.instance()
+
+  instance.add(value)
+
+  wrapper.update()
+
+  const items = instance.state().items
+  expect(items).toHaveLength(1)
+  expect(items).toEqual([ value ])
+
+})
+
+
 describe('App Full operations', () => {
   let wrapper
 
