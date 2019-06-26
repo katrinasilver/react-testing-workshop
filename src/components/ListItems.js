@@ -1,8 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-import ListItem from './ListItem'
+import ListItem from 'components/ListItem'
 
-const ListItems = props => (
+export const ListItems = props => (
   <ul>
     {
       props.items.map((e,i) => <ListItem key={i} item={e} />)
@@ -10,4 +11,6 @@ const ListItems = props => (
   </ul>
 )
 
-export default ListItems
+const mapStateToProps = state => ({ items: state.items})
+
+export default connect(mapStateToProps)(ListItems)

@@ -1,28 +1,28 @@
 import React, { Component } from 'react'
-import CreateItem from './CreateItem'
-import ListItems from './ListItems'
+import CreateItem from 'components/CreateItem'
+import ListItems from 'components/ListItems'
 
 
 class App extends Component {
-  constructor(props){
-    super(props)
+  // constructor(props){
+  //   super(props)
 
-    this.state = {
-      items: []
-    }
-  }
+  //   this.state = {
+  //     items: []
+  //   }
+  // }
   
-  add = item => {
-    this.setState({
-      items : [...this.state.items, item]
-    })
-  }
+  // add = item => {
+  //   this.setState({
+  //     items : [...this.state.items, item]
+  //   })
+  // }
   
   render(){
     return (
       <div>
-        <CreateItem add={this.add} />
-        <ListItems items={this.state.items} />
+        <CreateItem />
+        <ListItems />
       </div>
     );
   }

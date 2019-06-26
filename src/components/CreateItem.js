@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 
-class NewItem extends Component {
+import { addItem } from 'actions/items'
+export class CreateItem extends Component {
   constructor(props) {
     super(props)
 
@@ -18,7 +21,7 @@ class NewItem extends Component {
   handleSubmit = event => {
     event.preventDefault()
 
-    this.props.add(this.state.newItem)
+    this.props.addItem(this.state.newItem)
     this.setState({ newItem: '' }) 
 
   }
@@ -37,4 +40,10 @@ class NewItem extends Component {
   }
 }
 
-export default NewItem
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    addItem
+  }, dispatch)
+
+
+export default connect(null, mapDispatchToProps)(CreateItem)
