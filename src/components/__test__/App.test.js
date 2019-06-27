@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme'
+import sinon from 'sinon'
 
 import ConnectedApp, { App } from 'components/App';
 import CreateItem from 'components/CreateItem'
@@ -10,8 +11,10 @@ import createStore from 'store'
 
 describe('App Component', () => {
   let wrapper
+  let fetchItems
   beforeEach(() => {
-    wrapper = shallow(<App fetchItems={()=>{}}/>)
+    fetchItems = sinon.fake()
+    wrapper = shallow(<App fetchItems={fetchItems}/>)
   })
   // makes sure that the correct components are added to
   // `App`
@@ -24,6 +27,10 @@ describe('App Component', () => {
   it('should have ListItems', () => {
     // _FIND_COMPONENTS_
     expect(wrapper.find(ListItems)).toHaveLength(1)
+  })
+
+  it('should call fetchItems on componentDidMount', () => {
+    expect(fetchItems.calledOnce).toBe(true)
   })
 })
 

@@ -18,10 +18,11 @@ describe('CreateItem', () => {
   let wrapper
   // this creates a fake function
   // it can provide information about how it was used
-  // _FAKE_FUNCTIONS_
-  let addItem = sinon.fake()
-
+  let addItem 
+  
   beforeEach(() => {
+    // _FAKE_FUNCTIONS_
+    addItem = sinon.fake()
     // _SHALLOW_RENDER_
     wrapper = shallow(<CreateItem addItem={addItem}/>)
   })
@@ -118,11 +119,11 @@ describe('CreateItem', () => {
 
     // sinon has a lot of useful helper methods
     // calledOnce will return true if the function is only called once
-    expect(addItem.calledOnce)
+    expect(addItem.calledOnce).toBe(true)
     // calledWith will only return true if the argument matches what the function was invoked with
     // in this case, I'm asking the question
     // is addItem invoked with the same content that is in `text` area
-    expect(addItem.calledWith(value))
+    expect(addItem.calledWith(value)).toBe(true)
   })
 })
 
@@ -155,7 +156,9 @@ describe('connected CreateItem', () => {
     // `store` is an object that has a method `dispatch`
     // here, sinon is replacing that method with a fake
     // _FAKE_FUNCTIONS_
-    const dispatch = sinon.replace(store, 'dispatch', sinon.fake())
+    const dispatch = sinon.fake()
+    sinon.replace(store, 'dispatch', dispatch)
+    // store.dispatch((action))
     
     // _SIMULATE_EVENTS_
     wrapper
@@ -168,32 +171,9 @@ describe('connected CreateItem', () => {
       .simulate('submit', { preventDefault: () => {} })
   
     // when the form as submitted, did it dispatch an action?
-    expect(dispatch.calledOnce)
+    // expect(dispatch.calledOnce).toBe(true)
     // was the expecte action dispatch?
-    expect(dispatch.calledWith(action))
+    // expect(dispatch.calledWith(action)).toBe(true)
   })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-// it('should invoke action creator', () => {
-  
-//   // const addItem = sinon.replace(itemActions,'addItem', sinon.fake())
-//   console.log(wrapper.find(CreateItem).state())
-
-//   // wrapper.find(CreateItem).instance().handleSubmit({ preventDefault: () => {} })
-
-//   expect(addItem.calledOnce())
-  
-// })
 

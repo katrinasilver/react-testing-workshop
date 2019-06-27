@@ -65,7 +65,7 @@ describe('fetchItems action creator', () => {
       expect(dispach.calledWith({
         type: FETCH_ITEMS,
         payload: data
-      }))
+      })).toBe(true)
     })
   })
 })

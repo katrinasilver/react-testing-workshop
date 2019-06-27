@@ -40,7 +40,7 @@ export class CreateItem extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = dispatch => 
   bindActionCreators({
     addItem
   }, dispatch)
