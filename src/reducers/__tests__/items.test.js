@@ -1,4 +1,4 @@
-import { ADD_ITEM } from 'actions/types'
+import { ADD_ITEM, FETCH_ITEMS } from 'actions/types'
 import items from 'reducers/items'
 
 // a reducer is just a function, in these tests,
@@ -22,6 +22,26 @@ it('should add payload to the end of array for action type ADD_ITEM', () => {
   expect(newState).toEqual([ payload ])
 })
 
+
+it('should replace the state with data recieved with action type FETCH_ITEMS', () => {
+  const payload = [
+    {id:1, title:'a'},
+    {id:2, title:'b'},
+    {id:3, title:'c'},
+    {id:4, title:'d'}
+  ]
+  
+  const action = {
+    type: FETCH_ITEMS,
+    payload
+  }
+  
+  const newState = items([], action)
+
+  expect(newState).toEqual(payload)
+})
+
+
 it('should not change state of payload if action is not recognised', () => {
   const action = {
     type: 'UNRECOGNIZED_ACTION',
@@ -36,3 +56,4 @@ it('should not change state of payload if action is not recognised', () => {
   expect(newState).toBe(state)
   // deep equals is .toEqual()
 })
+

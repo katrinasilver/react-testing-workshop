@@ -1,8 +1,21 @@
-import { ADD_ITEM } from 'actions/types'
+import axios from 'axios'
+import { ADD_ITEM, FETCH_ITEMS } from 'actions/types'
 
-export const addItem = payload => {
+export const addItem = title => {
   return {
     type: ADD_ITEM,
-    payload
+    payload: {id: 3, title }
   }
 }
+
+export const fetchItems = () =>
+  async (dispatch, getStore) => {
+    try{
+      const response = await axios.get('https://my-json-server.typicode.com/rogerwschmidt/testing-example-api/items')
+
+      return dispatch({ type: FETCH_ITEMS, payload: response.data })
+    }
+    catch(e){
+      // console.log('something went wrong, should probably dispatch an action', e)
+    }
+  }

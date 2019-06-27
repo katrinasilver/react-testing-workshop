@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ListItem = props => (
-  <li>{props.item}</li>
+  <li>{props.item.title}</li>
 )
 
 export default ListItem

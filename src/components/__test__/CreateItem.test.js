@@ -17,10 +17,12 @@ import { ADD_ITEM } from 'actions/types';
 describe('CreateItem', () => {
   let wrapper
   // this creates a fake function
-  // it can probive information about how it was used
+  // it can provide information about how it was used
+  // _FAKE_FUNCTIONS_
   let addItem = sinon.fake()
 
   beforeEach(() => {
+    // _SHALLOW_RENDER_
     wrapper = shallow(<CreateItem addItem={addItem}/>)
   })
 
@@ -44,10 +46,12 @@ describe('CreateItem', () => {
     // is `target.value` therefore, it is the only thing provided.
     // this is helpful to dictate the data in the event, which makes
     // testing easier
+    // _SIMULATE_EVENTS_
     wrapper
       .find('textarea')
       .simulate('change', { target: { value } })
-   
+    
+    // _GET_PROPS_
     // .find needs to be called everytime to get changed data
     expect(wrapper.find('textarea').prop('value')).toBe(value)
   })
@@ -56,6 +60,7 @@ describe('CreateItem', () => {
   it('should clear text area after form is submitted', () => {
     const value = 'qwerty12345'
   
+    // _SIMULATE_EVENTS_
     wrapper
       .find('textarea')
       .simulate('change', { target: { value } })
@@ -63,17 +68,21 @@ describe('CreateItem', () => {
     // because the we need to create our own event objects when simulating
     // events, the submit event needs to have the `preventDefault` created
     // it can be an empty function
+    // _SIMULATE_EVENTS_
     wrapper
       .find('form')
       .simulate('submit', { preventDefault: () => {} })
   
+    // _GET_PROPS_
     expect(wrapper.find('textarea').prop('value')).toBe('')
   })
 
   // checks to see of `preventDefault` was called
   it('should prevent default on form submission', () => {
+    // _FAKE_FUNCTIONS_
     const preventDefault = sinon.fake()
     
+    // _SIMULATE_EVENTS_
     wrapper
       .find('form')
       .simulate('submit', { preventDefault })
@@ -97,10 +106,12 @@ describe('CreateItem', () => {
   it('should invoke prop addItem with contents of text area on submission', () => {
     const value = 'qwerty12345'
     
+    // _SIMULATE_EVENTS_
     wrapper
       .find('textarea')
       .simulate('change', { target: { value } })
   
+    // _SIMULATE_EVENTS_
     wrapper
       .find('form')
       .simulate('submit', { preventDefault: () => {} })
@@ -135,7 +146,7 @@ describe('connected CreateItem', () => {
   afterEach(() => wrapper.unmount())
 
   it('should dispatch an action when form is submitted', () => {
-    const payload = 'qwerty12345'
+    const payload = {id: 100, title:'qwerty12345'}
     const action = {
       type: ADD_ITEM,
       payload
@@ -143,12 +154,15 @@ describe('connected CreateItem', () => {
     // this is the core of this test
     // `store` is an object that has a method `dispatch`
     // here, sinon is replacing that method with a fake
+    // _FAKE_FUNCTIONS_
     const dispatch = sinon.replace(store, 'dispatch', sinon.fake())
     
+    // _SIMULATE_EVENTS_
     wrapper
       .find('textarea')
       .simulate('change', { target: { value: payload } })
   
+    // _SIMULATE_EVENTS_
     wrapper
       .find('form')
       .simulate('submit', { preventDefault: () => {} })

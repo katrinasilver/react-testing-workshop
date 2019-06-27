@@ -7,13 +7,19 @@ import ListItem from 'components/ListItem'
 
 import createStore from 'store'
 
-const data = ['a','b','c','d']
+const data = [
+  {id:1, title:'a'},
+  {id:2, title:'b'},
+  {id:3, title:'c'},
+  {id:4, title:'d'}
+]
 
 // 'ListItems' is tested separately from the connected component
 // This is to separate internal logic vs. props provided by redux
 describe('ListItems', () => {
   let wrapper
   beforeEach(() => {
+    // _SHALLOW_RENDER_
     // the component is created with static data
     // this will eventually be replaced with redux
     wrapper = shallow(<ListItems items={data}/>)
@@ -21,10 +27,12 @@ describe('ListItems', () => {
   
   // checks structure of of component
   it('should contain an unordered list', () => {
+    // _FIND_COMPONENTS_
     expect(wrapper.find('ul')).toHaveLength(1)
   })
 
   it('should have as many ListItem as data passed it', () => {
+    // _FIND_COMPONENTS_
     expect(wrapper.find(ListItem)).toHaveLength(data.length)
   })
 
@@ -32,6 +40,7 @@ describe('ListItems', () => {
   // and the data of in that prop matches the original data set
   it('pass props to ListItem', () => {
     wrapper.find(ListItem).forEach((e, i) => {
+      // _GET_PROPS_
       expect(e.prop('item')).toBe(data[i])
     })
   })
@@ -61,11 +70,13 @@ describe('ConnectedListItems', () => {
   afterEach(() => wrapper.unmount())
 
   it('should pass `items` props to component', () => {
+    // _GET_PROPS_
     const props = wrapper.find(ListItems).props()
     
     // makes sure that the correct props are added
     // to `ListItems` from redux connect
     expect(props).toHaveProperty('items')
+
     expect(Array.isArray(props.items))
   })
 })

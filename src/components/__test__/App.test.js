@@ -1,25 +1,50 @@
 import React from 'react';
-import { shallow } from 'enzyme'
+import { Provider } from 'react-redux'
+import { shallow, mount } from 'enzyme'
 
-import App from 'components/App';
+import ConnectedApp, { App } from 'components/App';
 import CreateItem from 'components/CreateItem'
 import ListItems from 'components/ListItems'
 
-let wrapper
+import createStore from 'store'
 
-beforeEach(() => {
-  wrapper = shallow(<App/>)
+describe('App Component', () => {
+  let wrapper
+  beforeEach(() => {
+    wrapper = shallow(<App fetchItems={()=>{}}/>)
+  })
+  // makes sure that the correct components are added to
+  // `App`
+  // There is no state management in App, everything is in redux
+  it('should have CreateItem', () => {
+    // _FIND_COMPONENTS_
+    expect(wrapper.find(CreateItem)).toHaveLength(1)
+  })
+
+  it('should have ListItems', () => {
+    // _FIND_COMPONENTS_
+    expect(wrapper.find(ListItems)).toHaveLength(1)
+  })
 })
 
-// makes sure that the correct components are added to
-// `App`
-// There is no state management in App, everything is in redux
-it('should have CreateItem', () => {
-  expect(wrapper.find(CreateItem)).toHaveLength(1)
+describe('Connected App Component', () => {
+  let wrapper
+  beforeEach(() => {
+    const store = createStore()
+
+    wrapper = mount(
+      <Provider store={store}>
+        <ConnectedApp />
+      </Provider>
+    )
+  })
+
+  it('should pass fetchItems to App', () => {
+    // _GET_PROPS_
+    expect(wrapper.find(App).props()).toHaveProperty('fetchItems')
+  })
 })
 
-it('should have ListItems', () => {
-  expect(wrapper.find(ListItems)).toHaveLength(1)
-})
+
 
 

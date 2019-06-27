@@ -1,23 +1,16 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import CreateItem from 'components/CreateItem'
 import ListItems from 'components/ListItems'
+import { bindActionCreators } from 'redux';
 
+import { fetchItems } from 'actions/items'
 
-class App extends Component {
-  // constructor(props){
-  //   super(props)
+export class App extends Component {
+  componentDidMount = () => {
+    this.props.fetchItems()
+  }
 
-  //   this.state = {
-  //     items: []
-  //   }
-  // }
-  
-  // add = item => {
-  //   this.setState({
-  //     items : [...this.state.items, item]
-  //   })
-  // }
-  
   render(){
     return (
       <div>
@@ -28,4 +21,9 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    fetchItems
+  }, dispatch)
+
+export default connect(null, mapDispatchToProps)(App)
